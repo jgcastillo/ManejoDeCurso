@@ -1,0 +1,16 @@
+.backLateral {
+    -fx-background-color: #42f4e2;
+}
+
+.workArea {
+    -fx-background-color: white;
+}
+
+.accordion .titled-pane .title  {
+    -fx-background-color: transparent;
+}
+
+.accordion .titled-pane > *.content  {
+    -fx-background-color: #42f4e2;
+}
+

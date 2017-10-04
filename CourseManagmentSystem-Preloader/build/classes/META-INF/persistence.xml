@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="CourseManagmentSystemPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>org.goyo.cursos.model.Asistencia</class>
+    <class>org.goyo.cursos.model.Intervencion</class>
+    <class>org.goyo.cursos.model.Curso</class>
+    <class>org.goyo.cursos.model.Estudiante</class>
+    <class>org.goyo.cursos.model.Evaluacion</class>
+    <class>org.goyo.cursos.model.Nota</class>
+    <class>org.goyo.cursos.model.Periodo</class>
+    <class>org.goyo.cursos.model.TipoEvaluacion</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/cursos?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="root"/>
+    </properties>
+  </persistence-unit>
+</persistence>
