@@ -1,10 +1,10 @@
 package org.goyo.cursos.modelfx;
 
 import java.time.LocalDate;
-import javafx.beans.property.DoubleProperty;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -25,20 +25,22 @@ public class EvaluacionFx {
     
     private final ObjectProperty<Integer> id;
     private final StringProperty nombre;
-    private final IntegerProperty tipo;
+    private final ObjectProperty<TipoEvaluacionFx> tipoEvaluacionFx;
     private final ObjectProperty<LocalDate> fecha;
     private final IntegerProperty nota;
     private final ObjectProperty<Double> peso;
+    private final ObjectProperty<Double> pesoAcumulado;
     private final StringProperty status;
     private final ObjectProperty<CursoFx> cursoFx;
 
     public EvaluacionFx() {
         this.id = new SimpleObjectProperty<>();
         this.nombre = new SimpleStringProperty();
-        this.tipo = new SimpleIntegerProperty();
+        this.tipoEvaluacionFx = new SimpleObjectProperty();
         this.fecha = new SimpleObjectProperty<>();
         this.nota = new SimpleIntegerProperty();
         this.peso = new SimpleObjectProperty<>();
+        this.pesoAcumulado = new SimpleObjectProperty<>();
         this.status = new SimpleStringProperty();
         this.cursoFx = new SimpleObjectProperty<>();
     }
@@ -67,16 +69,16 @@ public class EvaluacionFx {
         return this.nombre;
     }
     
-    public Integer getTipo() {
-        return this.tipo.get();
+    public TipoEvaluacionFx getTipoEvaluacionFx() {
+        return this.tipoEvaluacionFx.get();
     }
     
-    public void setTipo(Integer tipo){
-        this.tipo.set(tipo);
+    public void setTipoEvaluacionFx(TipoEvaluacionFx tipo){
+        this.tipoEvaluacionFx.set(tipo);
     }
 
-    public IntegerProperty tipoProperty(){
-        return this.tipo;
+    public ObjectProperty<TipoEvaluacionFx> tipoEvaluacionFxProperty(){
+        return this.tipoEvaluacionFx;
     }
     
     public LocalDate getFecha() {
@@ -115,6 +117,18 @@ public class EvaluacionFx {
         return this.peso;
     }
     
+    public Double getPesoAcmulado() {
+        return this.pesoAcumulado.get();
+    }
+    
+    public void setPesoAcumulado(Double pesoAcumulado){
+        this.pesoAcumulado.set(pesoAcumulado);
+    }
+    
+    public ObjectProperty<Double> pesoAcumuladoProperty(){
+        return this.pesoAcumulado;
+    }
+    
     public CursoFx getCursoFx() {
         return this.cursoFx.get();
     }
@@ -138,4 +152,15 @@ public class EvaluacionFx {
     public StringProperty statusProperty() {
         return this.status;
     }
+
+    @Override
+    public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        StringBuilder sb = new StringBuilder();
+        sb.append(nombre.get()).append( " - ");
+        sb.append(fecha.get().format(formatter));
+        return sb.toString();
+    }
+    
+    
 }

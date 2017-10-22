@@ -24,7 +24,7 @@ public class EstudianteFacade extends AbstractFacade<Estudiante> {
     public Optional<List<Estudiante>> findAllEstudianteByCurso(Curso curso){
         Optional<List<Estudiante>> optEstudiantes = Optional.empty();
         try {
-            String query = "FROM Estudiante e WHERE e.cursoId = :curso";
+            String query = "FROM Estudiante e WHERE e.cursoId = :curso ORDER BY e.apellido";
             TypedQuery<Estudiante> q = getEntityManager().createQuery(query, Estudiante.class);
             q.setParameter("curso", curso);
             optEstudiantes = Optional.ofNullable(q.getResultList());

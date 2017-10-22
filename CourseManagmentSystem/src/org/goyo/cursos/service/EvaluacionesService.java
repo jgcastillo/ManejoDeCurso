@@ -7,8 +7,10 @@ import javafx.collections.ObservableList;
 import org.goyo.cursos.dao.EvaluacionFacade;
 import org.goyo.cursos.model.Curso;
 import org.goyo.cursos.model.Evaluacion;
+import org.goyo.cursos.model.TipoEvaluacion;
 import org.goyo.cursos.modelfx.CursoFx;
 import org.goyo.cursos.modelfx.EvaluacionFx;
+import org.goyo.cursos.modelfx.TipoEvaluacionFx;
 import org.goyo.cursos.utilities.Utilities;
 
 /**
@@ -17,23 +19,20 @@ import org.goyo.cursos.utilities.Utilities;
  */
 public class EvaluacionesService {
 
-    private final ObservableList<String> evaluacionesTipo;
+    private final ObservableList<TipoEvaluacionFx> evaluacionesTipo;
     private final EvaluacionFacade evaluacionFacade;
     private final CursoService cursoService;
+    private final TipoEvaluacionService tipoEvaluacionService;
 
     public EvaluacionesService() {
         this.evaluacionesTipo = FXCollections.observableArrayList();
         this.evaluacionFacade = new EvaluacionFacade();
         this.cursoService = new CursoService();
+        this.tipoEvaluacionService = new TipoEvaluacionService();
     }
 
-    public ObservableList<String> getEvaluacionesTipo() {
-        evaluacionesTipo.add("Quiz");
-        evaluacionesTipo.add("Parcial");
-        evaluacionesTipo.add("Proyecto");
-        evaluacionesTipo.add("Reparación");
-        evaluacionesTipo.add("Tarea");
-        return evaluacionesTipo;
+    public ObservableList<TipoEvaluacionFx> getEvaluacionesTipo() {
+        return tipoEvaluacionService.findAllTipoEvaluacion();
     }
 
     public int getTipoInt(String tipoStr) {
@@ -82,6 +81,12 @@ public class EvaluacionesService {
         evaluacionFx.setId(evaluacion.getId());
         return evaluacionFx;
     }
+    
+    public void deleteEvaluacionFx(EvaluacionFx evaluacionFx){
+        Evaluacion evaluacion = parseToEvaluacion(evaluacionFx);
+        System.out.println("La evaluacion a eliminar es: " + evaluacion.getId());
+        evaluacionFacade.remove(evaluacion);
+    }
 
     public ObservableList<EvaluacionFx> getAllEvaluacionFxByCursoFx(CursoFx cursoFx) {
         ObservableList<EvaluacionFx> evaluacionesFx = FXCollections.observableArrayList();
@@ -99,9 +104,17 @@ public class EvaluacionesService {
 
     private Evaluacion parseToEvaluacion(EvaluacionFx evaluacionFx) {
         Evaluacion evaluacion = new Evaluacion();
+        evaluacion.setId(evaluacionFx.getId());
         evaluacion.setNombre(evaluacionFx.getNombre());
-        //evaluacion.setTipo(evaluacionFx.getTipo());
-        evaluacion.setPeso(evaluacionFx.getPeso());
+        TipoEvaluacion tipoEval = tipoEvaluacionService
+                                .parseToTipoEvaluacion(evaluacionFx.getTipoEvaluacionFx());
+        evaluacion.setTipoEvaluacionId(tipoEval);
+        if(null != evaluacionFx.getPeso()){
+            evaluacion.setPeso(evaluacionFx.getPeso());
+        }
+        if(null != evaluacionFx.getPesoAcmulado()){
+            evaluacion.setPesoAcumulado(evaluacionFx.getPesoAcmulado());
+        }
         evaluacion.setStatus(getStatusInt(evaluacionFx.getStatus()));
         evaluacion.setFecha(Utilities.parseToDate(evaluacionFx.getFecha()));
         CursoFx cursoFx = evaluacionFx.getCursoFx();
@@ -113,7 +126,9 @@ public class EvaluacionesService {
         EvaluacionFx evaluacionFx = new EvaluacionFx();
         evaluacionFx.setId(evaluacion.getId());
         evaluacionFx.setNombre(evaluacion.getNombre());
-        //evaluacionFx.setTipo(evaluacion.getTipo());
+        TipoEvaluacion tipoEval = evaluacion.getTipoEvaluacionId();
+        TipoEvaluacionFx tipoEvalFx = tipoEvaluacionService.parseToTipoEvaluacionFx(tipoEval);
+        evaluacionFx.setTipoEvaluacionFx(tipoEvalFx);
         evaluacionFx.setPeso(evaluacion.getPeso());
         evaluacionFx.setStatus(getStatusString(evaluacion.getStatus()));
         evaluacionFx.setFecha(Utilities.parseTolocalDate(evaluacion.getFecha()));

@@ -15,6 +15,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import org.goyo.cursos.model.TipoEvaluacion;
 import org.goyo.cursos.modelfx.TipoEvaluacionFx;
 import org.goyo.cursos.service.TipoEvaluacionService;
 import org.goyo.cursos.utilities.Utilities;
@@ -60,6 +61,8 @@ public class TipoEvaluacionesViewController implements Initializable {
     private void saveTipoEvaluacion(){
         TipoEvaluacionFx tipoEvalFx = tipoEvaluacionService
                                     .saveTipoEvaluacion(makeTipoEvaluacionFx());
+        nombreTextField.clear();
+        acumulativoCheckBox.setSelected(false);
         fillTipoEvaluacionTableView();
     }
     

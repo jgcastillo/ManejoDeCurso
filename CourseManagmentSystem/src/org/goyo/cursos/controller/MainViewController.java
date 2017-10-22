@@ -101,6 +101,11 @@ public class MainViewController implements Initializable {
     private void loadIntervencionesView() throws IOException {
         setWorkPane(fadeAnimate("/org/goyo/cursos/view/IntervencionesView.fxml"));
     }
+    
+    @FXML
+    private void loadCargaNotasView() throws IOException {
+        setWorkPane(fadeAnimate("/org/goyo/cursos/view/CargaNotasView.fxml"));
+    }
 
     public void updateActivePeriod() {
         Optional<PeriodoFx> periodoFx = periodoService.getPeriodoActivo();

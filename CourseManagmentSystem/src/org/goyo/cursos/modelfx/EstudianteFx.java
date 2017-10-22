@@ -115,7 +115,7 @@ public class EstudianteFx {
 
     @Override
     public String toString() {
-        return nombre.get() + " " + apellido.get();
+        return apellido.get() + ", " + nombre.get() ;
     }
     
     

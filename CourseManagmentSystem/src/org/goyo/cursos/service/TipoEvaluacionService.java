@@ -34,9 +34,9 @@ public class TipoEvaluacionService {
        return FXCollections.observableArrayList(lista);
     }
     
-    private TipoEvaluacion parseToTipoEvaluacion(TipoEvaluacionFx tipoEvalFx){
+    public TipoEvaluacion parseToTipoEvaluacion(TipoEvaluacionFx tipoEvalFx){
         TipoEvaluacion tipoEval = new TipoEvaluacion();
-        if(tipoEvalFx.getId() != null){
+        if(null != tipoEvalFx.getId()){
             tipoEval.setId(tipoEvalFx.getId());
         }
         tipoEval.setNombre(tipoEvalFx.getNombre());
@@ -47,7 +47,7 @@ public class TipoEvaluacionService {
         return tipoEval;
     }
     
-    private TipoEvaluacionFx parseToTipoEvaluacionFx(TipoEvaluacion tipoEval) {
+    public TipoEvaluacionFx parseToTipoEvaluacionFx(TipoEvaluacion tipoEval) {
         TipoEvaluacionFx tipoEvalFx = new TipoEvaluacionFx();
         tipoEvalFx.setId(tipoEval.getId());
         tipoEvalFx.setNombre(tipoEval.getNombre());

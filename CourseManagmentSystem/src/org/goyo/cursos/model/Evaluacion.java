@@ -6,10 +6,8 @@
 package org.goyo.cursos.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,12 +17,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -39,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Evaluacion.findByNombre", query = "SELECT e FROM Evaluacion e WHERE e.nombre = :nombre")
     , @NamedQuery(name = "Evaluacion.findByFecha", query = "SELECT e FROM Evaluacion e WHERE e.fecha = :fecha")
     , @NamedQuery(name = "Evaluacion.findByPeso", query = "SELECT e FROM Evaluacion e WHERE e.peso = :peso")
+    , @NamedQuery(name = "Evaluacion.findByPesoAcumulado", query = "SELECT e FROM Evaluacion e WHERE e.pesoAcumulado = :pesoAcumulado")
     , @NamedQuery(name = "Evaluacion.findByStatus", query = "SELECT e FROM Evaluacion e WHERE e.status = :status")})
 public class Evaluacion implements Serializable {
 
@@ -56,6 +53,8 @@ public class Evaluacion implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "peso")
     private Double peso;
+    @Column(name = "peso_acumulado")
+    private Double pesoAcumulado;
     @Column(name = "status")
     private Integer status;
     @JoinColumn(name = "curso_id", referencedColumnName = "id")
@@ -64,8 +63,6 @@ public class Evaluacion implements Serializable {
     @JoinColumn(name = "tipo_evaluacion_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private TipoEvaluacion tipoEvaluacionId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "evaluacionId")
-    private Collection<Nota> notaCollection;
 
     public Evaluacion() {
     }
@@ -106,6 +103,14 @@ public class Evaluacion implements Serializable {
         this.peso = peso;
     }
 
+    public Double getPesoAcumulado() {
+        return pesoAcumulado;
+    }
+
+    public void setPesoAcumulado(Double pesoAcumulado) {
+        this.pesoAcumulado = pesoAcumulado;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -128,15 +133,6 @@ public class Evaluacion implements Serializable {
 
     public void setTipoEvaluacionId(TipoEvaluacion tipoEvaluacionId) {
         this.tipoEvaluacionId = tipoEvaluacionId;
-    }
-
-    @XmlTransient
-    public Collection<Nota> getNotaCollection() {
-        return notaCollection;
-    }
-
-    public void setNotaCollection(Collection<Nota> notaCollection) {
-        this.notaCollection = notaCollection;
     }
 
     @Override

@@ -57,4 +57,9 @@ public class TipoEvaluacionFx {
     public StringProperty acumuladoProperty() {
         return acumulado;
     }
+
+    @Override
+    public String toString() {
+        return nombre.get();
+    }
 }

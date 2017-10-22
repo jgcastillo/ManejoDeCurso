@@ -9,7 +9,7 @@
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
     <jar href="lib\CourseManagmentSystem-Preloader.jar" size="53715" download="progress" />
-    <jar href="CourseManagmentSystem.jar" size="108545" download="eager" />
+    <jar href="CourseManagmentSystem.jar" size="114764" download="eager" />
     <jar href="lib\commons-codec-1.10.jar" size="284184" download="eager" />
     <jar href="lib\commons-collections4-4.1.jar" size="751238" download="eager" />
     <jar href="lib\commons-logging-1.2.jar" size="61829" download="eager" />
